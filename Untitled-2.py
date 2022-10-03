@@ -1,4 +1,3 @@
-# %%
 from array import array
 from math import ceil, sqrt
 import numpy as np
@@ -46,9 +45,6 @@ def myshow(num: int, image, title) -> None:
             plt.title(title[i]), plt.xticks(), plt.yticks()
     return None
 
-
-
-# %%
 def my_fft(image: array,if_mf: int) -> array:
     img_f32 = np.float32(image)
     dft = cv2.dft(img_f32, flags=cv2.DFT_COMPLEX_OUTPUT)
@@ -59,8 +55,6 @@ def my_fft(image: array,if_mf: int) -> array:
     return fft_image
 
 
-
-# %%
 img = cv2.imread("test.jpeg", 0)
 fft = my_fft(img, 1)
 img_blur = motion_blur(img, 15, 0)
@@ -68,17 +62,14 @@ fft_blur = my_fft(img_blur, 1)
 
 plt.imshow(img_blur,cmap = 'gray'),plt.show()
 
-# %%
+
 R_img = radon(fft, theta=np.arange(180))
 R_fft = radon(fft_blur, theta=np.arange(180))
 
 
-# %%
 R_fft_show = cv2.resize(R_fft, dsize=(
     np.shape(img_blur)[0], np.shape(img_blur)[1]))
 
-
-# %%
 max_loc = plm(R_fft, min_distance=10, num_peaks=1)
 for i in range(len(max_loc)):
     print(max_loc[i], R_fft[max_loc[i][0], max_loc[i][1]])
@@ -88,7 +79,7 @@ myshow(6, [img, fft, img_blur, fft_blur, R_img.T, R_fft.T, ], ['Input Image', 'F
        'Blur', 'Blur FFT', 'Radon FFT', 'Radon Blur FFT'])
 plt.show()
 
-# %%
+
 
 
 
